@@ -1,0 +1,20 @@
+A string array contains n strings. Each of the n string contains 3 sides of the traingle seperated by space.
+All 3 sides are numbers. Given the string array, find if the triangle is isosceles or equilateral for all n cases.
+
+abc=["36 36 30", "47 8 60","3 3 3", "3 5 5", "6 7 0", "9 7 1"]
+ 
+match = []
+for i in range(len(abc)):
+	a,b,c=abc[i].split()
+	a,b,c=int(a),int(b),int(c)
+	if a<=0 or b<=0 or c<=0:
+		match.append("None of these")
+	elif a>=b+c or b>=a+c or c>=a+b:
+		match.append("None of these")
+	elif (a==b and a==c):
+		match.append("Equilateral")
+	elif a==b or a==c or b==c:
+		match.append("Isosceles")
+	else:
+		match.append("None of these")
+print(match)
