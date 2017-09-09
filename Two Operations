@@ -1,0 +1,17 @@
+A target number is given and it should be reached from 0. You can either 'add 1' or 'multiply 2'.
+Find minimum number of ways to reach the target number.
+
+def no_of_steps(target):
+	count=0
+	while(target>0):
+		if target%2==0:
+			target=target//2
+			count+=1
+		else:
+			target=target-1
+			count+=1
+	print(target," : ",count)
+	
+no_of_steps(7)
+no_of_steps(25)
+no_of_steps(99)
