@@ -1,0 +1,29 @@
+import math
+
+li=[["a",87],["b",100],["c",64],["b",22]]
+#li=[["a",0],["b",20],["a",20]]
+#li=[["a",100],["b",-50],["a",-10],["b",0]]
+#li=[["a",0],["a",0]]
+
+l=[]
+avg=[]
+for item in li:
+	indices=[i for i,x in enumerate(l) if x == item[0]]
+	if not indices:
+		l.append(item[0])
+		avg.append(item[1])
+	else:
+		sum=0
+		c=0
+		for i in indices:
+			sum+=avg[i]
+			del l[i]
+			del avg[i]
+			c+=1
+		sum+=item[1]
+		c+=1
+		Avg=math.ceil(sum/c)
+		avg.append(Avg)
+	#print(l)
+	#print(avg)
+print("Best Average Grade = ", max(avg))
