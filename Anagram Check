@@ -1,0 +1,25 @@
+import re
+
+def anagram(str1, str2):
+	str1=(re.sub("[^a-zA-Z]","", str1)).lower()
+	str2=(re.sub("[^a-zA-Z]","", str2)).lower()
+	if len(str1) != len(str2):
+		return "NO"
+	elif sorted(str1)==sorted(str2):
+		return "YES"
+	
+	
+a=anagram("&,ehvTg456","vtgeh")
+print(a)
+
+b=anagram("","abcd")
+print(b)
+
+c=anagram("hi priya","iia y p r h")
+print(c)
+
+d=anagram("i","ii")
+print(d)
+
+e=anagram("iI","ii")
+print(e)
