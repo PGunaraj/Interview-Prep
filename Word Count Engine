@@ -1,0 +1,15 @@
+import re
+
+def word_count_engine(document):
+  pass
+  dontremove = " "
+  document=(re.sub("[^a-zA-Z"+dontremove+"]","",document)).lower()
+  word=document.split(" ")
+  ans=[[w,word.count(w)] for w in set(word)]
+  ans.sort(key=lambda k: k[1] , reverse=True)
+  for i in ans:
+  	i[1]=str(i[1])
+  print(ans)
+    
+  
+word_count_engine("Practice makes perfect, you'll get perfecT by practice. just practice! just just just!!")
