@@ -1,15 +1,16 @@
-import re
+import re   # to remove non alpha characters
+import json # to convert single quoted string in a list to double quoted
 
 def word_count_engine(document):
   pass
-  dontremove = " "
-  document=(re.sub("[^a-zA-Z"+dontremove+"]","",document)).lower()
+  dontremove = " " 
+  document=(re.sub("[^a-zA-Z"+dontremove+"]","",document)).lower() #remove all non alpha except spaces
   word=document.split(" ")
-  ans=[[w,word.count(w)] for w in set(word)]
-  ans.sort(key=lambda k: k[1] , reverse=True)
+  ans=[[w,word.count(w)] for w in set(word)] # generate count for each word
+  ans.sort(key=lambda k: (k[1],k[0]) , reverse=True) # sort list of list
   for i in ans:
   	i[1]=str(i[1])
-  print(ans)
+  print(json.dumps(ans))
     
   
 word_count_engine("Practice makes perfect, you'll get perfecT by practice. just practice! just just just!!")
