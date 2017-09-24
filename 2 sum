@@ -1,0 +1,18 @@
+class Solution:
+    def twoSum(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        li=[]
+        d={}
+        for z in range(len(nums)):
+            if nums[z] in d.keys():
+                li.append(d[nums[z]])
+                li.append(z)
+            else:
+                x=target-nums[z]
+                d[x]=z
+        return li
+        
