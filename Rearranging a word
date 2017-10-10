@@ -1,0 +1,14 @@
+from itertools import permutations
+import re
+ 
+s="ac%cd5"
+new=re.sub('[^a-z]'," ",s)
+print(new)
+perms = sorted(set(''.join(p) for p in permutations(new)))
+#print(perms)
+ans=''
+for i in range(len(perms)):
+	if perms[i] == s:
+		ans=perms[i+1]
+		break
+print(ans)
