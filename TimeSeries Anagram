@@ -1,0 +1,70 @@
+import sys
+x = sys.stdin.readlines()
+r = str(x[0])
+start,end = r.split(',')
+print start,end
+start_year,start_month = start.split('-')
+end_year,end_month = end.split('-')
+
+
+
+event_array = x[2:]
+dict_event = {}
+y = []
+monthlist = {}
+eventlist = {}
+
+for i in event_array:
+    date,event,number = i.split(',')
+    year,month,date = date.split('-')
+    
+    if (int(year)>int(start_year) and int(year)<int(end_year)) or ((int(year) == int(start_year)) and int(year)<int(end_year) and int(month)>=int(start_month)) or ((int(year) == int(end_year)) and int(month) <= int(end_month)):
+        print year
+        if year not in y:
+            y.append(year)
+        
+        if dict_event.has_key((year,month,event)):
+            dict_event[(year,month,event)] = dict_event[(year,month,event)] + number
+        else:
+            dict_event[(year,month,event)] = number
+        if monthlist.has_key(year):
+            
+            if month not in monthlist[year]:
+                monthlist[year].append(month)
+                
+        else:
+            
+            monthlist[year] = []
+            monthlist[year].append(month)
+            
+        if eventlist.has_key((month,year)):
+                if event not in eventlist[month,year]:
+                    eventlist[(month,year)].append(event)
+        else:
+            eventlist[(month,year)] = []
+            eventlist[(month,year)].append(event)
+                
+            
+for k,v in dict_event.items():
+    print k,v
+
+y = sorted(y, reverse=True)
+stringmonth = []
+output = ""
+for ye in y:
+    #print ye    
+    #print monthlist[ye]
+    #mon_keys =[int(i) for i in monthlist[ye].keys()]
+    eve_keys = []
+    
+    for x in sorted(monthlist[ye],reverse = True):
+        
+        eve_keys = eventlist[(x,ye)]
+        output = str(ye)+"-"+str(x)
+        for i in sorted(eve_keys):
+            output=output+","+str(i)+","+str(dict_event[(ye,x,i)])
+            output=output.rstrip()
+            #print i,dict_event[(ye,x,i)]
+        print output
+        stringmonth.append(output.rstrip())
+print stringmonth
