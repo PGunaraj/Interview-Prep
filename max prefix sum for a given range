@@ -24,3 +24,21 @@ represent seg tree in array:
     to find right child - 2i+2
     to find parent - (i-1)/2
   
+Algorithm:-
+constructTree(arr,seg,s,e,pos):
+    if s==e:
+        seg[pos]=arr[s]
+        return
+    m=(s+e)/2
+    constructTree(arr,seg,s,m,(2*pos)+1)
+    constructTree(arr,seg,m+1,e,(2*pos)+2)
+    seg[pos]=sum(seg[(2*pos)+1],seg[(2*pos)+2])
+    
+rangeSum(seg,l,h,s,e,pos):
+    if l<=s and h>=e:
+        return seg[pos]
+    elif l>e or h<s:
+        return 0
+    else:
+        m=(s+e)/2
+        return sum(rangeSum(seg,l,h,s,m,(2*pos)+1), rangeSum(seg,l,h,m+1,e,(2*pos)+2))
