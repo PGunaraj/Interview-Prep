@@ -1,0 +1,26 @@
+segment tree:
+  create - o(n)
+  maintain - o(n) space
+  lookup - o(logn)
+
+refer: https://www.youtube.com/watch?v=ZBHKZF5w4YU
+
+how to create:
+1) split array into 2 halves
+2) elements at leaf of bin tree
+3) build tree by finding min of 2 leaf
+4) to find te ans now use these three conditions,
+    a) partial overlap - look into both directions of tree
+    b) total overlap - return val at tree pos
+    c) no overlap - return dump val
+
+size of seg tree:
+    len(array) = pow of 2, then no of elements in tree are: [len(array)*2] - 1
+    else, no: [next pow of 2 of len(array) * 2] - 1
+
+represent seg tree in array:
+    write normally into array
+    to find left child - 2i+1
+    to find right child - 2i+2
+    to find parent - (i-1)/2
+  
