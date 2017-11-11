@@ -1,5 +1,5 @@
+#O(nlogn)
 import re
-
 def anagram(str1, str2):
 	str1=(re.sub("[^a-zA-Z]","", str1)).lower()
 	str2=(re.sub("[^a-zA-Z]","", str2)).lower()
@@ -23,3 +23,22 @@ print(d)
 
 e=anagram("iI","ii")
 print(e)
+
+#O(n)
+import re
+
+s1="Ac0t"
+s2="Tac"
+s1=(re.sub("[^a-zA-Z]","",s1)).lower()
+s2=(re.sub("[^a-zA-Z]","",s2)).lower()
+arr=[0]*26
+ck="YES"
+for ch in s1:
+	arr[ord(ch)-ord('a')]+=1
+for ch in s2:
+	arr[ord(ch)-ord('a')]-=1
+for i in range(len(arr)):
+	if arr[i]!=0:
+		ck="NO"
+		break
+print(ck)
