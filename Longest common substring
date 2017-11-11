@@ -1,0 +1,15 @@
+def longestCommonSubstring(s1,s2,m,n):
+	res=0
+	lcsfx=[([0]*(n+1)) for r in range(m+1)]
+	for i in range(m+1):
+		for j in range(n+1):
+			if i==0 or j==0:
+				lcsfx[i][j]=0
+			elif s1[i-1]==s2[j-1]:
+				lcsfx[i][j]=lcsfx[i-1][j-1]+1
+				res=max(res,lcsfx[i][j])
+			else:
+				lcsfx[i][j]=0
+	print(res)
+
+longestCommonSubstring("geeksfor","higeeks",8,7)
