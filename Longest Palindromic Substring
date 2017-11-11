@@ -1,4 +1,4 @@
-#dynamic pgmg
+#dynamic pgmg O(n*2)
 def longestPalindrome(string):
 	n=len(string)
 	m=1
