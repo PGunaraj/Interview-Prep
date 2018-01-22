@@ -1,0 +1,29 @@
+https://www.geeksforgeeks.org/double-first-element-move-zero-end/
+
+def order(arr,n):
+	pos=0
+	for i in range(n):
+	    if arr[i]!=0:
+	        arr[pos]=arr[i]
+	        pos=pos+1
+	while pos<n:
+	    arr[pos]=0
+	    pos=pos+1
+	return(arr)
+	
+def modified(arr,n):
+	for i in range(0,n-1):
+		if arr[i]!=0 and arr[i]==arr[i+1]:
+			arr[i]=arr[i]*2
+			arr[i+1]=0
+			i=i+1
+	return(order(arr,n))
+
+t=int(input())
+for x in range(t):
+    n=int(input())
+    arr=[int(s) for s in input().split()]
+    b=modified(arr,n)
+    for num in b:
+        print(num,end=" ")
+    print()
