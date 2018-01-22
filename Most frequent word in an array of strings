@@ -1,0 +1,52 @@
+https://www.geeksforgeeks.org/frequent-word-array-strings/
+
+#use hash table to store count of each word and retrieve the max count word
+store count in hash table - O(n)
+find max occuring word - O(n)
+totally - 2O(n)
+
+#code
+def hashThenLook(arr,n):
+    d={}
+    for item in arr:
+        if item not in d.keys():
+            d[item]=1
+        else:
+            d[item]=d[item]+1
+    maxWord=arr[0]
+    maxCount=d[arr[0]]
+    for i in range(1,n):
+        if d[arr[i]]==maxCount:
+            if arr[i]<maxWord:
+                maxWord=arr[i]
+        elif d[arr[i]]>maxCount:
+            maxCount=d[arr[i]]
+            maxWord=arr[i]
+    return maxWord
+
+arr=["hello","apple","ace","apple"]
+print(hashThenLook(arr,len(arr)))
+
+
+#O(n) - store in hash table ans simultaneously update max word and count
+
+#code
+def hashAndLook(arr,n):
+    d={}
+    maxWord=arr[0]
+    maxCount=0
+    for item in arr:
+        if item not in d.keys():
+            d[item]=1
+        else:
+            d[item]=d[item]+1        
+        if d[item]==maxCount:
+            if item<maxWord:
+                maxWord=item
+        elif d[item]>maxCount:
+            maxCount=d[item]
+            maxWord=item    
+    return maxWord
+
+arr=["hello","apple","ace","apple"]
+print(hashAndLook(arr,len(arr)))
