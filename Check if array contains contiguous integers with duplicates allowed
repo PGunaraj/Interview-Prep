@@ -1,3 +1,6 @@
+https://www.geeksforgeeks.org/check-array-contains-contiguous-integers-duplicates-allowed/
+
+
 #O(n)
 O(n) - traverse the array
 O(n) - store in hash table
@@ -118,3 +121,31 @@ l=LL()
 #arr=[10,14,10,12,12,13,15]
 arr=[5,2,3,6,4,4,6,6]
 ckIfArrayContinuous(arr,l)
+
+#O(n)
+1) use set to store the elements of the array
+2) take 1st elem of the array, increment it by 1 and check if it is in the set until an elem is not in the set
+3) do the same n step 2 by decrementing the val by 1
+4) count will be 1 initially and get no of elem present in set in step 2 and 3 and add it to count
+5) if the count equals no of elem in set then the elem are continuous
+
+def ckIfArrayContinuous(arr):
+	s=set()
+	for item in arr:
+		s.add(item)
+	count=1
+	curr=arr[0]+1
+	while curr in s:
+		count=count+1
+		curr=curr+1
+	curr=arr[0]-1
+	while curr in s:
+		count=count+1
+		curr=curr-1
+	if count==len(s):
+		return "Yes"
+	return "No"
+	
+arr=[10,14,10,12,12,13,15]
+#arr=[5,2,3,6,4,4,6,6]
+print(ckIfArrayContinuous(arr))
