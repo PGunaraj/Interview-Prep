@@ -6,8 +6,6 @@ O(n) - traverse the array
 O(n) - store in hash table
 O(1) - hash table lookup
 
-
-steps:
 1) use HashTable to store the count of numbers
 2) use LL to store the distict elements in ascending order
 3) then check if this order is contiguous or not
