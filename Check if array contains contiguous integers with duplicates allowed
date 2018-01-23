@@ -61,3 +61,60 @@ def ckIfArrayContinuous(arr,l):
 l=LL()
 arr=[10,14,10,12,12,13,15]
 ckIfArrayContinuous(arr,l)
+
+#instead of hash table each time check if element is in LL or not and then insert
+class Node:
+	def __init__(self,val):
+		self.data=val
+		self.next=None
+
+class LL:
+	def __init__(self):
+		self.head=None
+	def insert(self,v): #insert into a LL in ascending order
+		node=Node(v)
+		skip=True
+		if self.head==None:
+			self.head=node
+		else:
+			prev=self.head
+			curr=self.head
+			while curr!=None and skip:
+				if curr.data<node.data:
+					prev=curr
+					curr=curr.next
+				else:
+					skip=False
+			if skip:
+				prev.next=node
+			elif curr==self.head:
+				node.next=curr
+				self.head=node
+			else:
+				prev.next=node
+				node.next=curr
+	def chkIfElemInLL(self,e):
+		curr=self.head
+		while curr!=None:
+			if curr.data == e:
+				return True
+			curr=curr.next
+		return False
+	def chkIfLL_Contiguous(self): #check if LL is continuous or not
+		curr=self.head
+		while curr.next!=None:
+			if curr.data+1 != curr.next.data:
+				return("NO")
+			curr=curr.next
+		return("YES")
+
+def ckIfArrayContinuous(arr,l):
+	for item in arr:
+		if not l.chkIfElemInLL(item):
+			l.insert(item)
+	print(l.chkIfLL_Contiguous())
+	
+l=LL()
+#arr=[10,14,10,12,12,13,15]
+arr=[5,2,3,6,4,4,6,6]
+ckIfArrayContinuous(arr,l)
