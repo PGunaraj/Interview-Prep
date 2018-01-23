@@ -1,0 +1,63 @@
+#O(n)
+O(n) - traverse the array
+O(n) - store in hash table
+O(1) - hash table lookup
+
+
+steps:
+1) use HashTable to store the count of numbers
+2) use LL to store the distict elements in ascending order
+3) then check if this order is contiguous or not
+
+class Node:
+	def __init__(self,val):
+		self.data=val
+		self.next=None
+
+class LL:
+	def __init__(self):
+		self.head=None
+	def insert(self,v): #insert into a LL in ascending order
+		node=Node(v)
+		skip=True
+		if self.head==None:
+			self.head=node
+		else:
+			prev=self.head
+			curr=self.head
+			while curr!=None and skip:
+				if curr.data<node.data:
+					prev=curr
+					curr=curr.next
+				else:
+					skip=False
+			if skip:
+				prev.next=node
+			elif curr==self.head:
+				node.next=curr
+				self.head=node
+			else:
+				prev.next=node
+				node.next=curr
+	def chkIfLL_Contiguous(self): #check if LL is continuous or not
+		curr=self.head
+		while curr.next!=None:
+			if curr.data+1 != curr.next.data:
+				return("NO")
+			curr=curr.next
+		return("YES")
+
+def ckIfArrayContinuous(arr,l):
+	d={}
+	for item in arr:
+		if item not in d.keys():
+			d[item]=1
+			l.insert(item)
+		else:
+			d[item]=d[item]+1
+	x=l.chkIfLL_Contiguous()
+	print(x)
+	
+l=LL()
+arr=[10,14,10,12,12,13,15]
+ckIfArrayContinuous(arr,l)
