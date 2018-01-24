@@ -33,7 +33,7 @@ class LL:
 				print(curr.val,end=" ")
 				curr=curr.next
 			print()
-	def reverseLL(self):	#ITERATIVE RECURSION
+	def reverseLL(self):	#ITERATIVE APPROACH OF REVERSING
 		if self.head==None:
 			print("LL is empty")
 		else:
@@ -93,3 +93,19 @@ k.insertAtRear(7)
 k.insertAtRear(8)
 k.insertAtRear(9)
 addTwoLL(l,k)
+
+#reverse a LL by recursion
+def rev(self,curr,prev):	#helper fn
+	if curr.next==None:
+		self.head=curr
+		curr.next=prev
+		return
+	nxt=curr.next
+	curr.next=prev
+	self.rev(nxt,curr)
+def reverseLL(self):		#RECURSIVE APPROACH OF REVERSING
+	if self.head==None:
+		return
+	else:
+		self.rev(self.head,None)
+		self.printLL()
