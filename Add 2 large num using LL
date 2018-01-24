@@ -1,0 +1,95 @@
+#2O(n+n)
+O(n+n) - to traverse and reverse LL
+O(n+n) - to traverse the reversed LL and add numbers
+O(n) - space - to store result in a new LL
+
+class Node:
+	def __init__(self,v):
+		self.val=v
+		self.next=None
+
+class LL:
+	def __init__(self):
+		self.head=None
+	def insertAtRear(self,no):	#NORMAL INSERTION
+		node=Node(no)
+		if self.head==None:
+			self.head=node
+		else:
+			curr=self.head
+			while curr.next!=None:
+				curr=curr.next
+			curr.next=node
+	def insertAtFront(self,no):	#INSERT AT FRONT
+		node=Node(no)
+		node.next=self.head
+		self.head=node
+	def printLL(self):
+		if self.head==None:
+			print("LL is empty")
+		else:
+			curr=self.head
+			while curr!=None:
+				print(curr.val,end=" ")
+				curr=curr.next
+			print()
+	def reverseLL(self):	#ITERATIVE RECURSION
+		if self.head==None:
+			print("LL is empty")
+		else:
+			prev=None
+			nxt=None
+			curr=self.head
+			while curr!=None:
+				nxt=curr.next
+				curr.next=prev
+				prev=curr
+				curr=nxt
+			self.head=prev
+		self.printLL()
+
+def addTwoLL(l1,l2):	#ADD 2 LARGE NUMBERS USING LL
+	l1.reverseLL()
+	l2.reverseLL()
+	new=LL()
+	carry=0
+	curr1=l1.head
+	curr2=l2.head
+	while curr1!=None and curr2!=None:
+		ans=curr1.val+curr2.val+carry
+		carry=ans//10
+		rem=ans%10
+		new.insertAtFront(rem)
+		curr1=curr1.next
+		curr2=curr2.next
+	while curr1!=None:
+		ans=curr1.val+carry
+		carry=ans//10
+		rem=ans%10
+		new.insertAtFront(rem)
+		curr1=curr1.next
+	while curr2!=None:
+		ans=curr2.val+carry
+		carry=ans//10
+		rem=ans%10
+		new.insertAtFront(rem)
+		curr2=curr2.next
+	if carry!=0:
+		new.insertAtFront(carry)
+	new.printLL()
+	
+	
+l=LL()
+l.insertAtRear(1)
+l.insertAtRear(2)
+l.insertAtRear(3)
+l.insertAtRear(4)
+l.insertAtRear(5)
+l.insertAtRear(6)
+k=LL()
+k.insertAtRear(5)
+k.insertAtRear(6)
+k.insertAtRear(7)
+k.insertAtRear(8)
+k.insertAtRear(9)
+addTwoLL(l,k)
