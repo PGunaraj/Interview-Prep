@@ -1,0 +1,38 @@
+LL Cycle Detection and removal Algorithm
+Tortoise  -   slow pointer
+Hare      -   fast pointer
+
+1) Detect if there is a cycle in LL by finding if slow and fast pointers meet/intersect
+2) Find the start point of the cycle/loop
+3) remove the loop
+
+def intersect(self,head):         #checks whether there is a cycle or not
+  slow=head
+  fast=head
+  while fast!=None and fast.next!=None:
+      slow=slow.next
+      fast=fast.next.next
+      if slow==fast:
+          return fast
+  return None
+def detectCycle(self, head):      #find the cycle/loop start point/position
+  """
+  :type head: ListNode
+  :rtype: ListNode
+  """
+  if head is None:
+      return None
+  intersectPoint=self.intersect(head)
+  if intersectPoint is None:
+      return None
+  startPoint=head
+  while startPoint!=intersectPoint:
+      startPoint=startPoint.next
+      intersectPoint=intersectPoint.next
+  return startPoint
+def removeCycle(self,head):      #remove the loop by making the rear elem's next pointer point to null
+  start=self.detectCycle(head)
+  find=start
+  while find.next!=start:
+    find=find.next
+  find.next=None
