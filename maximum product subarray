@@ -1,0 +1,11 @@
+#O(n)
+each time find the max and min of elem, elem*localMax and elem*localMin and finally find the global max
+
+def maxProduct(self, nums):
+  localMin=nums[0]
+  localMax=nums[0]
+  maxPdt=nums[0]
+  for i in range(1,len(nums)):
+      localMax,localMin=max(nums[i],localMax*nums[i],localMin*nums[i]),min(nums[i],localMax*nums[i],localMin*nums[i])
+      maxPdt=max(maxPdt,localMax)
+  return maxPdt
