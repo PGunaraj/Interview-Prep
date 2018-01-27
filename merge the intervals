@@ -1,0 +1,17 @@
+#O(logn)
+1) sort the intervals based on start value
+2) merge the intervals A and B when B.start is less than A.end
+
+def merge(self, intervals):
+        intervals.sort(key=lambda x:x.start)
+        merged=[]
+        for i in intervals:
+            if not merged or merged[-1].end<i.start:
+                merged.append(i)
+            else:
+                merged[-1].end=max(merged[-1].end,i.end)
+        return merged
+        
+
+
+https://leetcode.com/problems/merge-intervals/description/
