@@ -1,0 +1,47 @@
+#O(nm)
+copy the 2D matrix into 1D array in a spiral clockwise order
+
+def spiral_copy(inputMatrix):
+  #output array
+  out=[]
+  
+  #row indexes
+  row_end=len(inputMatrix)-1
+  row_start=0
+  
+  #column indexes
+  col_end=len(inputMatrix[0])-1
+  col_start=0
+  
+  #loop till row or col indexes cross each other
+  while row_start<=row_end and col_start<=col_end:
+  
+      #complete the first row
+      for i in range(col_start,col_end+1):
+        out.append(inputMatrix[row_start][i])
+      row_start=row_start+1
+      
+      #complete last column
+      for i in range(row_start,row_end+1):
+        #print("2")
+        out.append(inputMatrix[i][col_end])
+      col_end=col_end-1
+      
+      #complete last row
+      if row_start<=row_end:
+        for i in range(col_end,col_start-1,-1):
+          #print("3")
+          out.append(inputMatrix[row_end][i])
+        row_end=row_end-1
+        
+      #complete first column
+      if col_start<=col_end:
+        for i in range(row_end,row_start-1,-1):
+          #print("4")
+          out.append(inputMatrix[i][col_start])
+      col_start=col_start+1
+      
+  return out
+ 
+#print(spiral_copy([[1,2,3,4,5],[6,7,8,9,10],[11,12,13,14,15],[16,17,18,19,20]]))
+#print(spiral_copy([[1]]))
