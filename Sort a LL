@@ -1,0 +1,77 @@
+https://www.geeksforgeeks.org/merge-sort-for-linked-list/
+
+
+#O(nlogn)
+sorting LL using MergeSort
+
+
+class Node:
+	def __init__(self,v):
+		self.val=v
+		self.next=None
+
+class LL:
+	def __init__(self):
+		self.head=None
+	def insert(self,v):
+		node=Node(v)
+		if self.head == None:
+			self.head=node
+		else:
+			curr=self.head
+			while curr.next!=None:
+				curr=curr.next
+			curr.next=node
+	def printLL(self):
+		if self.head!=None:
+			curr=self.head
+			while curr!=None:
+				print(curr.val,end=" ")
+				curr=curr.next
+		print()
+    
+	def getMiddle(self,h):
+		slow=h
+		fast=h.next
+		while fast!=None:
+			fast=fast.next
+			if fast!=None:
+				slow=slow.next
+				fast=fast.next
+		return slow
+    
+	def sortedMerge(self,l,r):
+		res=Node(None)
+		if l==None:
+			return r
+		if r==None:
+			return l
+		if l.val<=r.val:
+			res=l
+			res.next=self.sortedMerge(l.next,r)
+		else:
+			res=r
+			res.next=self.sortedMerge(l,r.next)
+		return res
+    
+	def mergeSort(self,h):
+		if h==None or h.next==None:
+			return h
+		mid=self.getMiddle(h)
+		midNext=mid.next
+		mid.next=None
+		l=self.mergeSort(h)
+		r=self.mergeSort(midNext)
+		SL=self.sortedMerge(l,r)
+		return SL
+
+l=LL()
+l.insert(15)
+l.insert(10)
+l.insert(5)
+l.insert(20)
+l.insert(3)
+l.insert(2)
+l.printLL()
+l.head=l.mergeSort(l.head)
+l.printLL()
