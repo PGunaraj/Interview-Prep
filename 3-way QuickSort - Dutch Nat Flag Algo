@@ -1,0 +1,34 @@
+https://www.geeksforgeeks.org/3-way-quicksort-dutch-national-flag/
+
+#O(nlogn) - sort numbers in place
+
+def partition(arr,low,high):
+	if high-low <= 1:
+		if arr[high]<arr[low]:
+			arr[high],arr[low]=arr[low],arr[high]
+		return(low,high)
+	mid=low
+	pivot=arr[high]
+	while mid<=high:
+		if arr[mid]<pivot:
+			arr[low],arr[mid]=arr[mid],arr[low]
+			low=low+1
+			mid=mid+1
+		elif arr[mid]==pivot:
+			mid=mid+1
+		elif arr[mid]>pivot:
+			arr[mid],arr[high]=arr[high],arr[mid]
+			high=high-1
+	return(low-1,mid)
+	
+def threeWayQuickSort(arr,low,high):
+	if low>=high:
+		return
+	i,j=partition(arr,low,high)
+	threeWayQuickSort(arr,low,i)
+	threeWayQuickSort(arr,j,high)
+
+
+a=[1,4,3,2,0,2,4]
+threeWayQuickSort(a,0,len(a)-1)
+print(a)
