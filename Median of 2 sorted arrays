@@ -1,40 +1,54 @@
-class Solution(object):
-    def findMedianSortedArrays(self, nums1, nums2):
-        """
-        :type nums1: List[int]
-        :type nums2: List[int]
-        :rtype: float
-        """
-        A=nums1
-        B=nums2
-        m, n = len(A), len(B)
-        if m > n:
-            A, B, m, n = B, A, n, m
-        if n == 0:
-            raise ValueError
+https://www.youtube.com/watch?v=LPFhl65R7ww&t=658s
 
-        imin, imax, half_len = 0, m, (m + n + 1) / 2
-        while imin <= imax:
-            i = (imin + imax) / 2
-            j = half_len - i
-            if i < m and B[j-1] > A[i]:
-                # i is too small, must increase it
-                imin = i + 1
-            elif i > 0 and A[i-1] > B[j]:
-                # i is too big, must decrease it
-                imax = i - 1
+#O(log(min(m,n)))
+(works for both same sized and diff sized arrays)
+
+def findMedianSortedArrays(self, nums1, nums2):
+    x=nums1
+    y=nums2
+    m, n = len(x), len(y)
+    if m>n:
+        x,y,m,n=y,x,n,m
+    if n==0:
+        return -1
+
+    start=0
+    end=m
+
+    while start<=end:
+        partX=(start+end)//2
+        partY=((m+n+1)//2)-partX
+
+        #x is too small. so move x to right.
+        if partX<m and y[partY-1]>x[partX]:
+            start=partX+1
+
+        #x s too big. so move x to left.
+        elif partX>0 and x[partX-1]>y[partY]:
+            end=partX-1
+
+        #i is perfect
+        else:
+
+            #getting max left part
+            if partX==0:
+                maxLeft=y[partY-1]
+            elif partY==0:
+                maxLeft=x[partX-1]
             else:
-                # i is perfect
+                maxLeft=max(x[partX-1],y[partY-1])
 
-                if i == 0: max_of_left = B[j-1]
-                elif j == 0: max_of_left = A[i-1]
-                else: max_of_left = max(A[i-1], B[j-1])
+            #checking if total size is odd and returning max left 
+            if (m+n)%2!=0:
+                return maxLeft
 
-                if (m + n) % 2 == 1:
-                    return max_of_left
+                #getting min right part
+                if partX==m:
+                    minRight=y[partY]
+                elif partY==n:
+                    minRight=x[partX]
+                else:
+                    minRight=min(x[partX],y[partY])
 
-                if i == m: min_of_right = B[j]
-                elif j == n: min_of_right = A[i]
-                else: min_of_right = min(A[i], B[j])
-
-                return (max_of_left + min_of_right) / 2.0
+                #returning avg of max and min if total size is even
+                return((maxLeft+minRight)/2.0)
