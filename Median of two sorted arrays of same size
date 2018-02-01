@@ -1,0 +1,49 @@
+#O(logn)
+
+
+def gedMedian(a,n):
+	if n%2==0:
+		return((a[n//2]+a[(n//2)-1])//2)
+	else:
+		return(a[n//2])
+
+
+def medOftwoSortedArr(a1,a2,n):
+	
+	#when there are no elements in array return nothing
+	if n==0:
+		return
+	
+	#when there is only 1 elem, median of both is the ans
+	elif n==1:
+		return(a1[0]+a2[0])//2
+		
+	#when there are 2 elements, median of middle 2 elem of combined array is the ans
+	elif n==2:
+		return(max(a1[0],a2[0]) + min(a1[1],a2[1]) )//2
+	
+	#when n is large, get both medians and compare them	
+	m1=gedMedian(a1,n)
+	m2=gedMedian(a2,n)
+	#print("medians are: ",m1,m2)
+	
+	#check if both medians are equal
+	if m1==m2:
+		return m1
+	
+	#when m1 is high, arr1[start:median] and arr2[median:end] is used
+	elif m1>m2:
+		if n%2==0:
+			return medOftwoSortedArr(a1[:(n//2)],a2[(n//2):],n//2)
+		return medOftwoSortedArr(a1[:(n//2)+1],a2[(n//2):],(n//2)+1)
+	
+	#when m2 is high, arr2[start:median] and arr1[median:end] is used
+	else:
+		if n%2==0:
+			return medOftwoSortedArr(a1[(n//2):],a2[:(n//2)],n//2)
+		return medOftwoSortedArr(a1[(n//2):],a2[:(n//2)+1],(n//2)+1)
+
+
+arr1=[1,2,3,6]
+arr2=[4,6,8,10]
+print(medOftwoSortedArr(arr1,arr2,len(arr1)))
