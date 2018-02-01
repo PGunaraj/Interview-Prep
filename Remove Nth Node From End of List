@@ -1,0 +1,24 @@
+#O(n)
+2-pass solu
+1) traverse LL and find len L
+2) traverse again till L-n
+3) make (L-n).next=(L-n).next.next
+
+1-pass solu
+1) have two pointers slow and fast
+2) fast starts at n+1 node and slow starts at dummy
+3) till fast is not null both are moved by 1 node
+4) when fast is null, slow.next=slow.next.next
+
+def removeNthFromEnd(self, head, n):
+        dummy=ListNode(None)
+        dummy.next=head
+        fast=dummy
+        slow=dummy
+        for i in range(n+1):
+            fast=fast.next
+        while fast!=None:
+            fast=fast.next
+            slow=slow.next
+        slow.next=slow.next.next
+        return dummy.next
