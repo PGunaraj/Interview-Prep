@@ -1,0 +1,32 @@
+#O(n)+O(n)=2O(n)
+Q.   if an elem in input matrix is 0 then make its entire row and col as 0
+Ans. store indexes of all 0's present in matrix in temp array. traverse the temp array and make row and col 0 for each index. 
+
+def setZeroes(self, matrix):
+  row=len(matrix)
+  if row>0:
+    col=len(matrix[0])
+    temp=[]
+    
+    #getting the indexes of 0
+    for i in range(row):
+        for j in range(col):
+            if matrix[i][j]==0:
+                temp.append([i,j])
+    
+    #making row and col of matrix where 0 is present
+    for i in range(len(temp)):
+    
+        #row where 0 is present
+        r=temp[i][0]
+        
+        #col where 0 is present
+        c=temp[i][1]
+        
+        #making row 0
+        for k in range(row):
+            matrix[k][c]=0
+            
+        #making col 0
+        for k in range(col):
+            matrix[r][k]=0
