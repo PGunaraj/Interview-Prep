@@ -41,9 +41,10 @@ print(route(0,0,vis,n))
 #ITERATIVE APPROACH
 #have a count array/matrix and update each cell's value
 #each cell value = (i-1,j) and (i,j-1) #we can move only right or up. so prev i or j value alone needed.
+#m - row, n - col
 
 def route(m,n):
-	count=[[0 for x in range(m)] for y in range(n)]
+	count=[[0 for y in range(n)] for x in range(m)]
 	
 	#making 1st row as 1
 	for i in range(m):
