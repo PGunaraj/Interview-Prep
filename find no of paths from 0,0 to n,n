@@ -1,4 +1,4 @@
-#RECURSIVE APPROACH - time comp increases exponentially
+#RECURSIVE APPROACH - time comp increases exponentially - but works for moving in all 4 directions
 #start from 0,0.
 #you can go in all 4 dir.
 #you should not visit the same node again in a path. So maintain a visited array.
@@ -38,7 +38,7 @@ print(route(0,0,vis,n))
 
 
 
-#ITERATIVE APPROACH
+#ITERATIVE APPROACH - O(mn) - bt works only for moving in 2 directions (right and up)
 #have a count array/matrix and update each cell's value
 #each cell value = (i-1,j) and (i,j-1) #we can move only right or up. so prev i or j value alone needed.
 #m - row, n - col
