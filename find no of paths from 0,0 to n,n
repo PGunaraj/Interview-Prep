@@ -1,3 +1,4 @@
+#RECURSIVE APPROACH - time comp increases exponentially
 #start from 0,0.
 #you can go in all 4 dir.
 #you should not visit the same node again in a path. So maintain a visited array.
@@ -34,3 +35,31 @@ def route(i,j,vis,n):
 n=2
 vis=[[0 for x in range(n+1)] for y in range(n+1)]
 print(route(0,0,vis,n))
+
+
+
+#ITERATIVE APPROACH
+#have a count array/matrix and update each cell's value
+#each cell value = (i-1,j) and (i,j-1) #we can move only right or up. so prev i or j value alone needed.
+
+def route(m,n):
+	count=[[0 for x in range(m)] for y in range(n)]
+	
+	#making 1st row as 1
+	for i in range(m):
+		count[i][0]=1
+		
+	#making 1st column as 1
+	for j in range(n):
+		count[0][j]=1
+	
+	#from second row, we start changing each cell's value
+	for i in range(1,m):
+		for j in range(n):
+			count[i][j]=count[i-1][j]+count[i][j-1]
+	
+	#desired cel is last cell
+	return count[m-1][n-1]
+		
+m,n=3,3
+print(route(m,n))
