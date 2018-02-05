@@ -1,0 +1,36 @@
+#start from 0,0.
+#you can go in all 4 dir.
+#you should not visit the same node again in a path. So maintain a visited array.
+
+from copy import deepcopy
+def route(i,j,vis,n):
+	
+  #when destination : (n,n) is reached, return 1
+  if i==n and j==n:
+		return 1
+    
+  #checking if (i,j) is inside the boundary
+	elif i<0 or i>n or j<0 or j>n:
+		return 0
+    
+  #checking if we are visiting the same node in a path
+	elif vis[i][j]==1:
+		return 0
+    
+	else:
+  
+    #sending a local copy of visited array each time
+		copy=deepcopy(vis)
+    
+    #making the local (i,j) as 1
+		copy[i][j]=1
+    
+    #going in all 4 directions
+		return route(i+1,j,copy,n)+route(i,j+1,copy,n)+route(i-1,j,copy,n)+route(i,j-1,copy,n)
+    
+    #reverting the local(i,j) to 0 so that next path can use this (i,j) or grid
+		copy[i][j]=0
+		
+n=2
+vis=[[0 for x in range(n+1)] for y in range(n+1)]
+print(route(0,0,vis,n))
