@@ -1,0 +1,59 @@
+class Node:
+	def __init__(self,v):
+		self.val=v
+		self.left=None
+		self.right=None
+
+class BinTree:
+	def __init__(self):
+		self.root=None
+	def insertNode(self,r,n):
+		if r==None:
+			return n
+		elif n.val<r.val:
+			if r.left==None:
+				r.left=n
+			else:
+				self.insertNode(r.left,n)
+		else:
+			if r.right==None:
+				r.right=n
+			else:
+				self.insertNode(r.right,n)
+			return
+	def insert(self,val):
+		node=Node(val)
+		if self.root==None:
+			self.root=node
+		else:
+			self.insertNode(self.root,node)
+	def inorder(self,r):
+		if r!=None:
+			if r.left:
+				self.inorder(r.left)
+			print(r.val,end=" ")
+			if r.right:
+				self.inorder(r.right)
+	def hasRight(self,n):
+		while n.right:
+			n=n.right
+		return n.val
+	def secLar(self):
+		if self.root.right:
+			print(self.hasRight(self.root.right))
+		elif self.root.left:
+			print(self.hasRight(self.root.left))
+		else:
+			print("None")
+
+b=BinTree()
+b.insert(20)
+b.insert(9)
+b.insert(5)
+b.insert(15)
+b.insert(25)
+b.insert(35)
+b.insert(22)
+b.inorder(b.root)
+print()
+b.secLar()
