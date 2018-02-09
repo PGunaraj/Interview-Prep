@@ -1,0 +1,147 @@
+class Node:
+	def __init__(self,v):
+		self.val=v
+		self.left=None
+		self.right=None
+
+class BinSearchTree:
+	def __init__(self):
+		self.root=None
+	
+	#inserting a node into binary search tree
+	def insertNode(self,r,n):
+		if r==None:
+			return n
+		elif n.val<r.val:
+			if r.left==None:
+				r.left=n
+			else:
+				self.insertNode(r.left,n)
+		else:
+			if r.right==None:
+				r.right=n
+			else:
+				self.insertNode(r.right,n)
+			return
+	def insert(self,val):
+		node=Node(val)
+		if self.root==None:
+			self.root=node
+		else:
+			self.insertNode(self.root,node)
+			
+	#deleting a node in BST
+	def findSuccessor(self,n):
+		while n.left!=None:
+			n=n.left
+		return n
+	def delete(self,r,n):
+		if r==None:
+			return r
+		if n<r.val:
+			r.left=self.delete(r.left,n)
+		elif n>r.val:
+			r.right=self.delete(r.right,n)
+		else:
+			if r.left==None:
+				temp=r.right
+				r=None
+				return temp
+			if r.right==None:
+				temp=r.left
+				r=None
+				return temp
+			temp=self.findSuccessor(r.right)
+			r.val=temp.val
+			r.right=self.delete(r.right,temp.val)
+		return r
+	
+	#traversal
+	#BFS
+	#inorder - L Root R
+	def inorder(self,r):
+		if r!=None:
+			if r.left:
+				self.inorder(r.left)
+			print(r.val,end=" ")
+			if r.right:
+				self.inorder(r.right)
+	
+	#preorder - Root L R
+	def preorder(self,r):
+		if r!=None:
+			print(r.val,end=" ")
+			if r.left:
+				self.preorder(r.left)
+			if r.right:
+				self.preorder(r.right)
+	
+	#postorder - L R Root
+	def postorder(self,r):
+		if r!=None:
+			if r.left:
+				self.postorder(r.left)
+			if r.right:
+				self.postorder(r.right)
+			print(r.val,end=" ")
+			
+	#DFS
+	#levelorder - printing nodes from each level (or) printing siblings together
+	def levelorder(self):
+		q=[]	#queue
+		q.append(self.root)
+		while len(q)>0:
+			temp=q.pop(0)
+			print(temp.val, end=" ")
+			if temp.left!=None:
+				q.append(temp.left)
+			if temp.right!=None:
+				q.append(temp.right)
+	
+	#searching in Binary Search Tree
+	def search(self,r,v):
+		if r is None:
+			return "No"
+		elif r.val==v:
+			return "Yes"
+		elif v<r.val:
+			return self.search(r.left,v)
+		else:
+			return self.search(r.right,v)
+	
+	#check if this is a binary search tree or not
+	def checkIfBST(self,r,min,max):
+		if r == None:
+			return True
+		else:
+			if r.val>=min and r.val<=max:
+				return(self.checkIfBST(r.left,min,r.val) and self.checkIfBST(r.right,r.val,max))
+			else:
+				return False
+
+
+b=BinSearchTree()
+b.insert(20)
+b.insert(9)
+b.insert(5)
+b.insert(15)
+b.insert(25)
+b.insert(35)
+b.insert(22)
+print("inorder:", end=" ")
+b.inorder(b.root)
+print()
+print("preorder:", end=" ")
+b.preorder(b.root)
+print()
+print("postorder:", end=" ")
+b.postorder(b.root)
+print()
+print("levelorder:", end=" ")
+b.levelorder()
+print()
+print("search:",b.search(b.root,9))
+print("check if BST or not:",b.checkIfBST(b.root,0,100))
+print("delete and print tree inorder")
+b.root=b.delete(b.root,20)
+b.inorder(b.root)
