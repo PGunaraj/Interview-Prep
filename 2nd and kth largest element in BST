@@ -39,6 +39,8 @@ class BinTree:
 			print(r.val,end=" ")
 			if r.right:
 				self.inorder(r.right)
+	
+	#second largest
 	def secLarUtil(self,r):
 		if r==None or self.c>=2:
 			return
@@ -49,6 +51,18 @@ class BinTree:
 		self.secLarUtil(r.left)
 	def secLar(self):
 		self.secLarUtil(self.root)
+	
+	#kth largest
+	def kLarUtil(self,r,k):
+		if r==None or self.c>=k:
+			return
+		self.kLarUtil(r.right,k)
+		self.c=self.c+1
+		if self.c==k:
+			print(k,"th largest is",r.val)
+		self.kLarUtil(r.left,k)
+	def kLar(self,k):
+		self.kLarUtil(self.root,k)
 
 b=BinTree()
 b.insert(20)
@@ -59,3 +73,4 @@ b.insert(35)
 b.inorder(b.root)
 print()
 b.secLar()
+b.kLar(3)
