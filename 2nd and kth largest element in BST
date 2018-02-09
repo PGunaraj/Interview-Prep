@@ -1,3 +1,7 @@
+# do reverse inorder
+# for 2nd largest, when count is 2 print it and stop traversing
+# for kth largest, when count is k print it and stop traversing
+
 class Node:
 	def __init__(self,v):
 		self.val=v
@@ -7,6 +11,7 @@ class Node:
 class BinTree:
 	def __init__(self):
 		self.root=None
+		self.c=0
 	def insertNode(self,r,n):
 		if r==None:
 			return n
@@ -34,26 +39,23 @@ class BinTree:
 			print(r.val,end=" ")
 			if r.right:
 				self.inorder(r.right)
-	def hasRight(self,n):
-		while n.right:
-			n=n.right
-		return n.val
+	def secLarUtil(self,r):
+		if r==None or self.c>=2:
+			return
+		self.secLarUtil(r.right)
+		self.c=self.c+1
+		if self.c==2:
+			print("2nd largest is",r.val)
+		self.secLarUtil(r.left)
 	def secLar(self):
-		if self.root.right:
-			print(self.hasRight(self.root.right))
-		elif self.root.left:
-			print(self.hasRight(self.root.left))
-		else:
-			print("None")
+		self.secLarUtil(self.root)
 
 b=BinTree()
 b.insert(20)
 b.insert(9)
 b.insert(5)
-b.insert(15)
 b.insert(25)
 b.insert(35)
-b.insert(22)
 b.inorder(b.root)
 print()
 b.secLar()
