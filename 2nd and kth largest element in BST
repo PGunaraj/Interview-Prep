@@ -51,6 +51,7 @@ class BinTree:
 		self.secLarUtil(r.left)
 	def secLar(self):
 		self.secLarUtil(self.root)
+		self.c=0
 	
 	#kth largest
 	def kLarUtil(self,r,k):
@@ -63,6 +64,7 @@ class BinTree:
 		self.kLarUtil(r.left,k)
 	def kLar(self,k):
 		self.kLarUtil(self.root,k)
+		self.c=0
 
 b=BinTree()
 b.insert(20)
