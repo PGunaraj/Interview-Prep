@@ -114,7 +114,7 @@ class BinSearchTree:
 		if r == None:
 			return True
 		else:
-			if r.val>=min and r.val<=max:
+			if r.val>min and r.val<max:
 				return(self.checkIfBST(r.left,min,r.val) and self.checkIfBST(r.right,r.val,max))
 			else:
 				return False
