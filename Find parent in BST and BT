@@ -1,0 +1,25 @@
+#BST
+def findParent(self,r,n):
+  if r.val==n:
+    return None
+  elif n==r.left.val or n==r.right.val:
+    return r.val
+  elif n<r.val:
+    return self.findParent(r.left,n)
+  else:
+    return self.findParent(r.right,n)
+
+
+#BT
+def findParent(r,n):
+  if r==None:
+    return None
+  elif n==r.left.val or n==r.right.val:
+    return r.val
+  else:
+    L=findParent(r.left,n)
+    if L==None:
+      R=findParent(r.right,n)
+    if L==None:
+      return R
+    return L
