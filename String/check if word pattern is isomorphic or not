@@ -1,0 +1,27 @@
+def wordPattern(self, pattern, str):
+    """
+    :type pattern: str
+    :type str: str
+    :rtype: bool
+    """
+    
+    #use 2 HT to store both mappings and check both mappings each time. 
+    #time - O(n)
+    #space - 2O(n)
+    
+    words=str.split(" ")
+    if len(words)!=len(pattern):
+        return False
+    l=len(pattern)
+    d1={}   #to store pattern and word pair
+    d2={}   #to store word and pattern pair
+    for i in range(l):
+        if pattern[i] in d1.keys() and words[i]!=d1[pattern[i]]:
+            return False
+        else:
+            d1[pattern[i]]=words[i]
+        if words[i] in d2.keys() and pattern[i]!=d2[words[i]]:
+            return False
+        else:
+            d2[words[i]]=pattern[i]
+    return True
