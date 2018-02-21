@@ -1,0 +1,49 @@
+
+def isIsomorphic(self, s, t):
+    """
+    :type s: str
+    :type t: str
+    :rtype: bool
+    """
+    if len(s)!=len(t):
+        return False
+    l=len(s)
+  
+  
+    #BRUTE FORCE - O(n^2)
+    """for i in range(l):
+        for j in range(i,l):
+            if (s[j]==s[i] and t[j]!=t[i]) or (t[j]==t[i] and s[j]!=s[i]):
+                return False
+    return True"""
+
+
+    #WRONG - using HashTable to store the key value pairs - one-to-one mapping of s1 with s2 can be checked 
+    #whereas s2 with s1 cannot be checked. This can be done in O(n). If s2 to be checked with s1 then time comp 
+    #will be O(n^2) again coz we need to traverse the whole HT each time. So this is worse than brute force
+    """d={}
+    for i in range(l):
+        if s[i] in d.keys() and d[s[i]]!=t[i]:
+            return False
+    return True"""
+
+
+    #use visited array to store the visited ch in s2
+    #use HT to store the key value pairs - mapping of s1 with s2
+    #check each time if ch in s2 is already visited or not
+    #This handles both one-to-one mappings
+    #time - O(n)
+    #space - O(n) HT + O(256) visited array
+    d={}
+    visited=[0]*256
+    for i in range(l):
+        if s[i] not in d.keys():
+            if visited[ord(t[i])]==1:
+                return False
+            visited[ord(t[i])]=1
+            d[s[i]]=t[i]
+        else:
+            if d[s[i]]!=t[i]:
+                return False
+    return True
+
