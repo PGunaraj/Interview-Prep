@@ -25,3 +25,31 @@ def wordPattern(self, pattern, str):
         else:
             d2[words[i]]=pattern[i]
     return True
+    
+    
+    #use HT to store word-pattern mappings and visited array to check if the character in pattern 
+    #is already visited or not. check both HT and visited array each time. 
+    #time - O(n)
+    #space - O(n) + O(256) = O(n)
+    
+    words=str.split(" ")
+    if len(words)!=len(pattern):
+        return False
+    l=len(pattern)
+    d={}   #to store word and pattern pair
+    visited = [0]*256
+    for i in range(l):
+        #when word is not in dict 
+        if words[i] not in d.keys():
+            #if the ch in pattern is already visited then FALSE
+            if visited[ord(pattern[i])]==1:
+                return False
+            #else make the ch visited and store the key-value pair
+            visited[ord(pattern[i])]=1
+            d[words[i]]=pattern[i]
+        #when word not in dict
+        else:
+            #if the value for the word dont match the ch in pattern
+            if d[words[i]]!=pattern[i]:
+                return False
+    return True
