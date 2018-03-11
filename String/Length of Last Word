@@ -1,0 +1,19 @@
+#O(n)
+
+def lengthOfLastWord(self, s):
+      i=len(s)-1
+      
+      #from end till u find spaces, move pos towards start
+      while i>=0 and s[i].isspace():
+          i=i-1
+          
+      #to count last word's length    
+      length=0
+      
+      #correct pos of last word's last char is in i
+      #now move this i towards start till u find char
+      while i>=0 and not s[i].isspace():
+          i=i-1
+          length=length+1
+      
+      return length
