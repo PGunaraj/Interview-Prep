@@ -1,4 +1,4 @@
-#O(n)+O(n)=2O(n)
+#O(n)+O(n) = 2O(n) = O(n)
 Q.   if an elem in input matrix is 0 then make its entire row and col as 0
 Ans. store indexes of all 0's present in matrix in temp array. traverse the temp array and make row and col 0 for each index. 
 
@@ -30,3 +30,54 @@ def setZeroes(self, matrix):
         #making col 0
         for k in range(col):
             matrix[r][k]=0
+
+
+
+#without using temp array, change the matrix in place
+#2O(n) = O(n)
+
+
+def setZeroes(self, matrix):
+    FirstRow = False
+    FirstCol = False
+
+    r = len(matrix)
+    c = len(matrix[0])
+
+    #checking if first row has any 0
+    for i in range(c):
+        if matrix[0][i] == 0:
+            FirstRow = True
+            break
+
+    #checking if first column has any 0
+    for i in range(r):
+        if matrix[i][0] == 0:
+            FirstCol = True
+            break
+
+    #setting first row's col to 0 when 0 is found in same row diff col
+    #setting first col's row to 0 when 0 is found in same col diff row
+    for i in range(1,r):
+        for j in range(1,c):
+            if matrix[i][j] == 0:
+                matrix[i][0] = 0
+                matrix[0][j] = 0
+
+    #making entire row and column as 0
+    for i in range(1,r):
+        for j in range(1,c):
+            if matrix[i][0] == 0 or matrix[0][j] == 0:
+                matrix[i][j] = 0
+        
+    #if 1st row contains 0 then make entire 1st row 0
+    if FirstRow:
+        for i in range(c):
+            matrix[0][i] = 0
+
+    #if 1st column contains 0 then make entire 1st column 0
+    if FirstCol:
+        for i in range(r):
+            matrix[i][0] = 0
+        
+        
