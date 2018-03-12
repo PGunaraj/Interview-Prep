@@ -1,0 +1,46 @@
+# Q - given n, create a n*n matrix and store elements starting from 1 till n*n in spiral order
+
+
+def generateMatrix(self, n):
+
+    r_s=0
+    c_s=0
+    r_e=n-1
+    c_e=n-1
+    num=1
+
+    #creating list of lists
+    matrix=[0]*n
+    for i in range(n):
+        matrix[i]=[0]*n
+
+    while r_s<=r_e and c_s<=c_e:
+
+        #fill top row
+        for i in range(c_s,c_e+1):
+            matrix[r_s][i]=num
+            num=num+1
+        r_s=r_s+1
+
+        #fill right column
+        for i in range(r_s,r_e+1):
+            matrix[i][c_e]=num
+            num=num+1
+        c_e=c_e-1
+
+        #fill bottom row
+        if r_s<=r_e:
+            for i in range(c_e,c_s-1,-1):
+                matrix[r_e][i]=num
+                num=num+1
+            r_e=r_e-1
+
+        #fill left column
+        if c_s<=c_e:
+            for i in range(r_e,r_s-1,-1):
+                matrix[i][c_s]=num
+                num=num+1
+            c_s=c_s+1
+
+    return matrix
+        
