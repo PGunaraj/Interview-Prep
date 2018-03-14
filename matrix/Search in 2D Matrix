@@ -1,0 +1,95 @@
+#each row is a range
+#get the range where target can be found (i.e) get the correct row
+#traverse the row to check if target is present or not
+# O(column size) = O(n)
+
+def searchMatrix(self, matrix, target):
+    if matrix==None or len(matrix)==0 or len(matrix[0])==0:
+        return False
+
+    m=len(matrix)
+    n=len(matrix[0])
+    row=0
+
+    #get the row where target can be found
+    while row<m:
+        if matrix[row][0]==target or matrix[row][n-1]==target:
+            return True
+        if target>matrix[row][0] and target<matrix[row][n-1]:
+            break
+        row=row+1
+
+    #traverse the row to check if target is found
+    if row==m:
+        return False
+    for i in range(1,n-1):
+        if matrix[row][i]==target:
+            return True
+    return False
+    
+    
+#instead of searching whole row search half the row - using binary search as the sorted matrix is a sorted list
+#RECURSIVE APPROACH
+
+def find(self,matrix,row_start,row_end,col,target):
+    if row_start>row_end:
+        return False
+
+    if target==matrix[(row_end+row_start)//2][(col-1)//2]:
+        return True
+
+    elif target<matrix[(row_end+row_start)//2][(col-1)//2]:
+        if target<matrix[(row_end+row_start)//2][0]:
+            return self.find(matrix,row_start,((row_end+row_start)//2)-1,col,target)
+        else:
+            for i in range(0,(col-1)//2):
+                if target==matrix[(row_end+row_start)//2][i]:
+                    return True
+            return False
+
+    else:
+        if target>matrix[(row_end+row_start)//2][col-1]:
+            return self.find(matrix,((row_end+row_start)//2)+1,row_end,col,target)
+        else:
+            for i in range((col-1)//2,col):
+                if target==matrix[(row_end+row_start)//2][i]:
+                    return True
+            return False
+
+def searchMatrix(self, matrix, target):
+    if matrix==None or len(matrix)==0 or len(matrix[0])==0:
+        return False
+
+    m=len(matrix)
+    n=len(matrix[0])
+
+    return self.find(matrix,0,m-1,n,target)
+    
+
+#ITERATIVE APPROACH
+
+def searchMatrix(self, matrix, target):
+  if matrix==None or len(matrix)==0 or len(matrix[0])==0:
+      return False
+
+  m=len(matrix)
+  n=len(matrix[0])
+  s=0
+  e=m*n-1
+
+  while s<=e:
+      mid  = (s+e)//2
+      midX = mid//n
+      midY = mid%n
+      if target == matrix[midX][midY]:
+          return True
+      elif target < matrix[midX][midY]:
+          e=mid-1
+      else:
+          s=mid+1
+
+  return False
+        
+        
+        
+        
