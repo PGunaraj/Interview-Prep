@@ -1,0 +1,59 @@
+#both row and column are sorted in ascending order like below matrix
+""" [
+    [1,   4,  7, 11, 15],
+    [2,   5,  8, 12, 19],
+    [3,   6,  9, 16, 22],
+    [10, 13, 14, 17, 24],
+    [18, 21, 23, 26, 30]
+    ]"""
+  
+#solu: take each row and check it's elements with target. if elem > target, skip this row and go to next row.
+#O(mn)
+
+
+def searchMatrix(self, matrix, target):
+  #check if matrix is empty
+  if matrix==None or len(matrix)==0 or len(matrix[0])==0:
+      return False
+
+  #get row and column size
+  m = len(matrix)
+  n=len(matrix[0])
+
+  #for each row and each column
+  for i in range(m):
+      for j in range(n):
+          #check if elem is target and return true
+          if matrix[i][j]==target:
+              return True
+          #check is elem>target and skip the current row
+          elif matrix[i][j]>target:
+              break
+
+  return False
+  
+  
+  
+  #O(m+n)
+  #row=m, column=0
+  #when elem>target, decrement row
+  #when elem<target, increment column
+  
+def searchMatrix(self, matrix, target):
+    #check if matrix is empty
+    if matrix==None or len(matrix)==0 or len(matrix[0])==0:
+        return False
+
+    n = len(matrix[0])-1
+    row = len(matrix)-1
+    col = 0
+
+    while row>=0 and col<=n:
+        if matrix[row][col]<target:
+            col=col+1
+        elif matrix[row][col]>target:
+            row=row-1
+        else:
+            return True
+
+    return False
