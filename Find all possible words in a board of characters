@@ -1,0 +1,49 @@
+https://www.geeksforgeeks.org/boggle-find-possible-words-board-characters/
+
+#comp - O(m+n)(m+n-1) ?????not sure
+
+from copy import deepcopy
+
+#dictionary to store correct words
+dict={"GEEKS","FOR","QUIZ","GO"}
+max_len=0
+
+#get the maximum length of the word possible in dict
+for word in dict:
+	if len(word)>max_len:
+		max_len=len(word)
+
+#look up a word in dict
+def isWord(x):
+	if x in dict:
+		return True
+	return False
+
+#generate all possible words and check if it exists in dict or not
+def generateWords(arr,i,j,m,n,vis,word):
+	#boundary conditions, checking if char is already visited, when word's length exceeds maximum length
+	if i<0 or i>m-1 or j<0 or j>n-1 or vis[i][j]==1 or len(word)>max_len:
+		return 0
+	#append char to word
+	word=word+arr[i][j]
+	#check if word exists in dict
+	if isWord(word):
+			print(word)
+	#get the new copy of visited array for every new word
+	copy=deepcopy(vis)
+	copy[i][j]=1
+	#go to all possible directions (8 directions)
+	return generateWords(arr,i,j-1,m,n,copy,word)+generateWords(arr,i,j+1,m,n,copy,word)+generateWords(arr,i-1,j,m,n,copy,word)+generateWords(arr,i+1,j,m,n,copy,word)+generateWords(arr,i-1,j-1,m,n,copy,word)+generateWords(arr,i-1,j+1,m,n,copy,word)+generateWords(arr,i+1,j-1,m,n,copy,word)+generateWords(arr,i+1,j+1,m,n,copy,word)
+	copy[i][j]=0
+
+#boggle array
+arr=[["G","I","Z"],["U","E","K"],["Q","S","E"]]
+m=len(arr)
+n=len(arr[0])
+#visited array
+vis=[[0 for i in range(m)] for j in range(n)]
+#start from each char and generate words
+for i in range(m):
+	for j in range(n):
+		generateWords(arr,i,j,m,n,vis,"")
+	
