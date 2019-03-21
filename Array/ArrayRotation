@@ -1,0 +1,34 @@
+#Brute Force
+#store 1st elem in temp, move all elements to one position left. Repeat this 'd' times.
+#time - O(n*d), space - O(1)
+
+def arrRotation(arr,n,d):
+	for i in range(d):
+		temp=arr[0]
+		for j in range(n-1):
+			arr[j]=arr[j+1]
+		arr[j+1]=temp
+
+arr=[1,2,3,4,5]
+arrRotation(arr,5,2)
+print(arr)
+
+
+
+
+#store 'd' elements to temp array
+#move (n-d) elem left and put elem from temp array
+#time - O(n), space - O(d)
+
+def arrRotation(arr,n,d):
+	temp=[None for i in range(d)]
+	for i in range(d):
+		temp[i]=arr[i]
+	for i in range(n-d):
+		arr[i]=arr[i+d]
+	for i in range(d):
+		arr[(n-d)+i]=temp[i]
+
+arr=[1,2,3,4,5]
+arrRotation(arr,5,2)
+print(arr)
