@@ -1,5 +1,6 @@
 #Brute Force
-#store 1st elem in temp, move all elements to one position left. Repeat this 'd' times.
+#store 1st elem in temp, move all elements to one position left. Put the temp into last elem in array.
+#Repeat this 'd' times.
 #time - O(n*d), space - O(1)
 
 def arrRotation(arr,n,d):
@@ -28,6 +29,29 @@ def arrRotation(arr,n,d):
 		arr[i]=arr[i+d]
 	for i in range(d):
 		arr[(n-d)+i]=temp[i]
+
+arr=[1,2,3,4,5]
+arrRotation(arr,5,2)
+print(arr)
+
+
+
+#Reversal Algo:
+#(1) Reverse 0 to (d-1) elem
+#(2) Reverse d to n(n-1) elem
+#(3) Reverse whole array
+#time - O(n)
+
+def arrReverse(arr,left,right):
+	while(left<right):
+		arr[left],arr[right]=arr[right],arr[left]
+		left+=1
+		right-=1
+	
+def arrRotation(arr,n,d):
+	arrReverse(arr,0,d-1)
+	arrReverse(arr,d,n-1)
+	arrReverse(arr,0,n-1)
 
 arr=[1,2,3,4,5]
 arrRotation(arr,5,2)
