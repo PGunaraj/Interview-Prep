@@ -1,0 +1,29 @@
+(1) use stack
+time - O(n)
+space - O(n)
+
+def reverse(l):
+	s=[]
+	for ch in l:
+		s.append(ch)
+	for i in range(len(l)):
+		l[i]=s.pop()
+	print(l)
+	
+reverse(["h","e","l","l","o"])
+
+
+(2) use L and R pointers
+time - O(n)
+space - O(1)
+
+def reverse(string):
+	l=0
+	r=len(string)-1
+	while l<r:
+		string[l],string[r]=string[r],string[l]
+		l+=1
+		r-=1
+	print()
+	
+reverse(["h","e","l","l","o"])
