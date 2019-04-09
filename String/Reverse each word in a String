@@ -1,0 +1,16 @@
+use stack to store each word and reverse it
+time - O(n)
+space - O(n)
+
+def reverse(string):
+	s=[]
+	for i in range(len(string)):
+		if string[i]!=' ':
+			s.append(string[i])
+		else:
+			while len(s)!=0:
+				print(s.pop(),end="")
+			print(string[i],end="")
+	while len(s)!=0:
+		print(s.pop(),end="")
+reverse("hello I am Priya")
