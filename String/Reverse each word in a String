@@ -20,7 +20,7 @@ reverse("hello I am Priya")
 #split words and stoer in a list
 #reverse each word if it's not in dictionary and add that word to dictionary
 #time - O(n)
-#space - O(words)
+#space - O(words) avg O(n) worst
 
 def reverse(string):
 	s=[]
