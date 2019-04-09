@@ -24,6 +24,6 @@ def reverse(string):
 		string[l],string[r]=string[r],string[l]
 		l+=1
 		r-=1
-	print()
+	print(string)
 	
 reverse(["h","e","l","l","o"])
