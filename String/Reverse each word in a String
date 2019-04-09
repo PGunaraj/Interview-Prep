@@ -1,6 +1,6 @@
-use stack to store each word and reverse it
-time - O(n)
-space - O(n)
+#use stack to store each word and reverse it
+#time - O(n)
+#space - O(n)
 
 def reverse(string):
 	s=[]
@@ -14,3 +14,25 @@ def reverse(string):
 	while len(s)!=0:
 		print(s.pop(),end="")
 reverse("hello I am Priya")
+
+
+#eliminate the duplicates when reversing each word in a sentence
+#split words and stoer in a list
+#reverse each word if it's not in dictionary and add that word to dictionary
+#time - O(n)
+#space - O(words)
+
+def reverse(string):
+	s=[]
+	d={}
+	l=string.split(" ")
+	for word in l:
+		if word not in d.keys():
+			d[word]=1
+			for i in range(len(word)):
+				s.append(word[i])
+			while len(s)!=0:
+				print(s.pop(),end="")
+			print(" ",end="")
+			
+reverse("hello i am i priya hello")
