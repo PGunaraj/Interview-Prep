@@ -1,0 +1,28 @@
+ITERATIVE APPROACH:-
+Level-Order traversal can be used to find the size of the BST
+
+def size(self,node):
+		q=[]
+		s = 0
+		q.append(node)
+		while len(q) > 0:
+			tmp = q.pop(0)
+			s+=1
+			if tmp.left:
+				q.append(tmp.left)
+			if tmp.right:
+				q.append(tmp.right)
+		return s
+    
+    
+    
+RECURSIVE APPROACH:-
+tree size = 1 + size(left_subtree) + size(right_subtree)
+
+def size(self,node):
+		if not node:
+			return 0
+		l = self.size(node.left)
+		r = self.size(node.right)
+		s = 1 + l + r
+		return s
