@@ -1,0 +1,50 @@
+PostOrder (L-R-Ro) traversal is used to delete a BST
+
+
+class Node:
+	def __init__(self,val):
+		self.val = val
+		self.left = None
+		self.right = None
+
+class BinarySearchTree:
+	def __init__(self):
+		self.root = None
+	def ins(self,node,v):
+		if not node:
+			return Node(v)
+		elif v < node.val:
+			if not node.left:
+				node.left = self.ins(node.left,v)
+			else:
+				self.ins(node.left,v)
+		else:
+			if not node.right:
+				node.right = self.ins(node.right,v)
+			else:
+				self.ins(node.right,v)
+		return
+	def insert(self,v):
+		if not self.root:
+			self.root = self.ins(self.root,v)
+		else:
+			self.ins(self.root,v)
+	def delete(self,node):
+		if not node:
+			return
+		self.delete(node.left)
+		self.delete(node.right)
+		node.val = None
+	def printTree(self,node):
+		if not node:
+			return
+		self.printTree(node.left)
+		self.printTree(node.right)
+		print(node.val)
+			
+b = BinarySearchTree()
+b.insert(5)
+b.insert(3)
+b.insert(10)
+b.delete(b.root)
+b.printTree(b.root)
