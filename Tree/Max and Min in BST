@@ -12,7 +12,7 @@ def maximum(self,node):
     
 minimum element in a BST will be the left-most element
 
-def maximum(self,node):
+def minimum(self,node):
 		if not node:
 			return "Error! Tree is Empty"
 		while node.left:
