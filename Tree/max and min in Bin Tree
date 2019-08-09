@@ -20,7 +20,7 @@ def maximum(self,root):
 		q = []
 		q.append(root)
 		while len(q) > 0:
-			tmp = q.pop()
+			tmp = q.pop(0)
 			if tmp.val > m:
 				m = tmp.val
 			if tmp.left:
