@@ -1,0 +1,20 @@
+maximum element in a BST will be the right-most element
+
+def maximum(self,node):
+		if not node:
+			return "Error! Tree is Empty"
+		while node.right:
+			node=node.right
+		return node.val
+    
+    
+    
+    
+minimum element in a BST will be the left-most element
+
+def maximum(self,node):
+		if not node:
+			return "Error! Tree is Empty"
+		while node.left:
+			node=node.left
+		return node.val
