@@ -1,0 +1,34 @@
+RECURSIVE:
+max = max( curr.val, curr.left, curr.right)
+
+def maximum(self,node):
+		if not node:
+			return -1
+		l = self.maximum(node.left)
+		r = self.maximum(node.right)
+		m = max(node.val,l,r)
+		return m
+   
+   
+ITERATIVE:
+(1) Max will be -inf
+(2) Use Queue or stack to store each element and it's left & right. 
+(3) Whenever we pop we compare it with max and update it
+
+def maximum(self,root):
+		m = -1
+		q = []
+		q.append(root)
+		while len(q) > 0:
+			tmp = q.pop()
+			if tmp.val > m:
+				m = tmp.val
+			if tmp.left:
+				q.append(tmp.left)
+			if tmp.right:
+				q.append(tmp.right)
+		return m
+    
+    
+    
+    NOTE: min is same as max expect for '<' operator
