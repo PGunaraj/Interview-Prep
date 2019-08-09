@@ -1,0 +1,39 @@
+ITERATIVE:
+(1) use 1 queue to store curr elem and other queue to store curr elem's left & right
+    (a) when u pop elem from q1, add it's left & right to q2
+    (b) do this until q1 becomes empty
+    (c) now we have covered all elements from same level. so make q2 as q1 and q2 as empty list
+(2) use 'ht' to track the height/depth
+
+def height(self,root):
+		ht = 1
+		q1 = []
+		q2 = []
+		q1.append(root)
+		while len(q1) > 0:
+			for i in range(ht):
+				if len(q1) == 0:
+					break
+				tmp = q1.pop(0)
+				if tmp.left:
+					q2.append(tmp.left)
+				if tmp.right:
+					q2.append(tmp.right)
+			q1 = q2 
+			q2 = []
+			ht += 1
+		return ht-1
+
+
+
+
+RECURSIVE:
+ht(tree) = 1 + max( ht(left_subtree), ht(right_subtree) )
+
+def height(self,node):
+		if not node:
+			return 0
+		l = self.height(node.left)
+		r = self.height(node.right)
+		ht = 1 + max(l,r)
+		return ht
