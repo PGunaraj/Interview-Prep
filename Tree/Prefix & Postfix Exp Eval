@@ -1,0 +1,51 @@
+STEPS:
+(1) Use BST traversal to get the Exp. Store the Exp in an array/list.
+      (a) Prefix Exp - PreOrder Traversal
+      (b) Postfix Exp - PostOrder Traversal
+(2) Use stack to store the numbers
+      (a) Prefix - start from end
+      (b) Postfix - start from beginning
+(3) Push when you see numbers and pop 2 times when you see an operator. 
+(4) Evaluate this current smaller exp and push the ans back to stack.
+(5) Do this untill the list is traversed fully.
+
+
+def Eval(n1,n2,op):
+	ans = {
+		'+':n1+n2,
+		'-':n1-n2,
+		'*':n1*n2,
+		'/':n1//n2,
+		}
+	return ans[op]
+  
+def PrefixEval(li):
+	S= []
+	for i in range(len(li)-1,-1,-1):
+		if str(li[i]).isdigit():
+			S.append(li[i])
+		else:
+			n1 = S.pop()
+			n2 = S.pop()
+			ans = Eval(n1,n2,li[i])
+			S.append(ans)
+	return S.pop()
+  
+def PostfixEval(li):
+	S= []
+	for i in range(len(li)):
+		if str(li[i]).isdigit():
+			S.append(li[i])
+		else:
+			n1 = S.pop()
+			n2 = S.pop()
+			ans = Eval(n2,n1,li[i])
+			S.append(ans)
+	return S.pop()	
+	
+	
+  
+Prefix = ['*', '+', 3,1,2]
+print(PrefixEval(Prefix))
+Postfix = [3,1,'+',2,'*']
+print(PostfixEval(Postfix))
