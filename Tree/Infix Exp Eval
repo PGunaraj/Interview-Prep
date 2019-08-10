@@ -1,0 +1,50 @@
+Covert infix to postfix/prefix exp and then evaluate it.
+
+
+def Eval(no1,no2,op):
+	n1=int(no1)
+	n2=int(no2)
+	ans = {
+		'+':n1+n2,
+		'-':n1-n2,
+		'*':n1*n2,
+		'/':n1//n2,
+		}
+	return ans[op]
+def PostfixEval(exp):
+	S= []
+	for ch in exp:
+		if ch.isdigit():
+			S.append(ch)
+		else:
+			n1 = S.pop()
+			n2 = S.pop()
+			ans = Eval(n2,n1,ch)
+			S.append(ans)
+	return S.pop()	
+def InfToPost(exp):
+	prec = {'+':1, '-':1, '*':2, '/':2, '(':0, ')':0, '^':3}
+	ans = ""
+	s = []
+	for ch in exp:
+		if ch.isalpha():
+			ans += ch
+		elif ch=='(':
+			s.append(ch)
+		elif ch==')':
+			while s[-1] != '(':
+				ans += s.pop()
+			s.pop()
+		else:
+			while len(s)>0 and prec[s[-1]] >= prec[ch]:
+				ans+=s.pop()
+			s.append(ch)
+	while len(s)>0:
+		op = s.pop()
+		if op != '(':
+			ans += op
+	return PostfixEval(ans)
+	
+
+exp="a+b*(c^d-e)^(f+g*h)-i"
+print(InfToPost(exp))
