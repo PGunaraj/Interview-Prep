@@ -48,3 +48,60 @@ def InfToPost(exp):
 
 exp="a+b*(c^d-e)^(f+g*h)-i"
 print(InfToPost(exp))
+
+
+Without converting, direct Infix Exp Eval needs 2 stacks to track numbers and operators seperately
+
+def Eval(n1,n2,op):
+	ans = {
+		'+':n1+n2,
+		'-':n1-n2,
+		'*':n1*n2,
+		'/':n1//n2
+	}
+	return ans[op]
+def InfixEval(exp):
+	prec = { '+':1, '-':1, '*':2, '/':2 }
+	num=[]
+	opt=[]
+	i = 0
+	while i < len(exp):
+		if exp[i].isdigit():
+			tmp=""
+			while i<len(exp) and exp[i].isdigit():
+				tmp+=exp[i]
+				i+=1
+			i-=1
+			num.append(int(tmp))
+		elif exp[i] == '(':
+			opt.append(exp[i])
+		elif exp[i] == ')':
+			while opt[-1]!='(':
+				op = opt.pop()
+				n2 = num.pop()
+				n1 = num.pop()
+				ans = Eval(n1,n2,op)
+				num.append(ans)
+			opt.pop()
+		else:
+			while len(opt)>0 and opt[-1] != '(' and prec[opt[-1]] >= prec[exp[i]]:
+				op = opt.pop()
+				n2 = num.pop()
+				n1 = num.pop()
+				ans = Eval(n1,n2,op)
+				num.append(ans)
+			opt.append(exp[i])
+		i+=1
+	while len(opt)>0:
+		op = opt.pop()
+		n2 = num.pop()
+		n1 = num.pop()
+		ans = Eval(n1,n2,op)
+		num.append(ans)
+	return num[-1]
+	
+	
+print(InfixEval("3+5-2"))
+print(InfixEval("3+(6-4)*(8/2)"))
+print(InfixEval("100*(2+12)"))
+print(InfixEval("100*(2+12)/14"))
