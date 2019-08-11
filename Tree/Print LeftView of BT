@@ -1,0 +1,62 @@
+ITERATIVE:
+left-most element in each level is the left view
+
+
+def leftView(self,node):
+		q1=[node]
+		q2=[]
+		ht=1
+		level=1
+		while len(q1)>0:
+			for i in range(ht):
+				if len(q1) == 0:
+					break
+				tmp=q1.pop(0)
+				if level == ht:
+					print(tmp.val,end=" ")
+					level += 1
+				if tmp.left:
+					q2.append(tmp.left)
+				if tmp.right:
+					q2.append(tmp.right)
+			q1 = q2
+			q2 = []
+			ht += 1
+		print()
+    
+b = BinarySearchTree()
+b.insert(5)
+b.insert(3)
+b.insert(10)
+b.insert(20)
+b.insert(30)
+b.insert(1)
+b.leftView(b.root)
+
+
+
+RECURSIVE:
+Pass in level and maxLevel to the recursive function.
+  level     -> call by value (Level changed globally)
+  maxLevel  -> call by reference (maxLevel changed globally)
+Do a check if level > maxLevel -> this means the first node (left-most node) is visited. 
+(maxLevel helps to makes sure that we print only the first visited node in each level)
+
+
+def leftView(self,node,level, maxLevel):
+  if not node:
+    return None
+  elif level > maxLevel[0]:
+    print(node.val,end=" ")
+    maxLevel[0] = level
+  self.leftView(node.left,level+1,maxLevel)
+  self.leftView(node.right,level+1,maxLevel)
+b = BinarySearchTree()
+b.insert(50)
+b.insert(3)
+b.insert(10)
+b.insert(20)
+b.insert(30)
+b.insert(100)
+maxLevel = [0]
+b.leftView(b.root,1,maxLevel)
