@@ -1,0 +1,38 @@
+#same as BFS of tree
+#the only difference here is that the node/vertex can be visited again coz of the loop
+#so, we use VISITED array to track the nodes visited
+#t - O(V+E)
+#s - O(V)
+
+from collections import defaultdict
+class Graph:
+	def __init__(self,v):
+		self.verLen = v
+		self.verList = defaultdict(list)
+	
+	def addEdge(self,x,y):
+		self.verList[x].append(y)
+	
+	def BFS(self,source):
+		q = []
+		vis = [False]*self.verLen
+		
+		#start from the source
+		q.append(source)
+		vis[source] = True
+		
+		while q:
+			tmp = q.pop(0)
+			print(tmp, end=" ")
+			for v in self.verList[tmp]:
+				if not vis[v]:
+					vis[v] = True
+					q.append(v)
+
+g = Graph(4)
+g.addEdge(0,1)
+g.addEdge(0,2)
+g.addEdge(1,2)
+g.addEdge(2,0)
+g.addEdge(2,3)
+g.BFS(2)
