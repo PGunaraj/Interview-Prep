@@ -1,0 +1,35 @@
+#Q - https://www.geeksforgeeks.org/find-a-mother-vertex-in-a-graph/
+#Do DFS. (start dfs from each dis-connected vertex -> count number of times DFS is called)
+#t - O(V+E)
+#s - O(V)
+
+
+from collections import defaultdict
+class Graph:
+	def __init__(self,v):
+		self.verLen = v
+		self.verList = defaultdict(list)
+	
+	def addEdge(self,x,y):
+		self.verList[x].append(y)
+	
+	def DFSUtil(self,v,vis):
+		vis[v] = True
+		for vertex in self.verList[v]:
+			if not vis[vertex]:
+				self.DFSUtil(vertex,vis)
+		
+	def DFS(self):
+		vis = [False]*self.verLen
+		count = 0
+		for i in range(self.verLen):
+			if not vis[i]:
+				self.DFSUtil(i,vis)
+				count += 1
+		return count
+
+g = Graph(5)
+g.addEdge(0, 1) 
+g.addEdge(0, 2) 
+g.addEdge(3, 4) 
+print("Number of trees are: " + str(g.DFS()))
