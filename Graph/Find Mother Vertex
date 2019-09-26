@@ -1,0 +1,48 @@
+#get the last visited vertex and check if it's a mother vertex or not
+#t - O(V+E)
+#s - O(V)
+
+from collections import defaultdict
+class Graph:
+	def __init__(self,v):
+		self.verLen = v
+		self.verList = defaultdict(list)
+	
+	def addEdge(self,x,y):
+		self.verList[x].append(y)
+	
+	def DFSUtil(self,v,vis):
+		vis[v] = True
+		for vertex in self.verList[v]:
+			if not vis[vertex]:
+				self.DFSUtil(vertex,vis)
+		
+	def findMother(self):
+		vis = [False]*self.verLen
+		v = 0
+		#get mother vertex -> last visited vertex
+		for i in range(self.verLen):
+			if not vis[i]:
+				self.DFSUtil(i,vis)
+				v = i
+        
+		#check if u can reach all the vertices from the predicted mother vertex or not
+		vis = [False]*self.verLen
+		self.DFSUtil(v,vis)
+		for i in range(self.verLen):
+			#some vertex is not reachable, so mother vertex doesn't exist for this graph
+			if not vis[i]:
+				return -1
+		#all vertices are reachable. so, mother vertex is right
+		return v
+
+g = Graph(7)
+g.addEdge(0, 1) 
+g.addEdge(0, 2) 
+g.addEdge(1, 3) 
+g.addEdge(4, 1) 
+g.addEdge(6, 4) 
+g.addEdge(5, 6) 
+g.addEdge(5, 2) 
+g.addEdge(6, 0)
+print("Mother vertex is: " + str(g.findMother()))
