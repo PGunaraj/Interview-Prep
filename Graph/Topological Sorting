@@ -1,0 +1,42 @@
+#(Q) -> https://www.geeksforgeeks.org/topological-sorting/
+#use DFS to traverse. In DFS, we print the node as we visit and then go to it's adjacent vertices.
+#here, we push the vertex to stack only when all it's adjacent vertices are visited
+#finally pop the stack and print it
+#t - O(V+E)
+#s - O(V)
+
+
+
+from collections import defaultdict
+class Graph:
+	def __init__(self,v):
+		self.verLen = v
+		self.verList = defaultdict(list)
+	
+	def addEdge(self,x,y):
+		self.verList[x].append(y)
+	
+	def dfs(self,v,vis,s):
+		vis[v] = True
+		for ver in self.verList[v]:
+			if not vis[ver]:
+				self.dfs(ver,vis,s)
+		s.insert(0,v)
+		
+	def topologicalSort(self):
+		vis = [False]*self.verLen
+		s = []
+		for v in range(self.verLen):
+			if not vis[v]:
+				self.dfs(v,vis,s)
+		print(s)
+
+g = Graph(4)
+g.addEdge(0, 1) 
+g.addEdge(0, 2) 
+g.addEdge(0, 3) 
+g.addEdge(1, 3) 
+g.addEdge(3, 0) 
+g.addEdge(2, 1) 
+print("topological sorting: ")
+g.topologicalSort()
