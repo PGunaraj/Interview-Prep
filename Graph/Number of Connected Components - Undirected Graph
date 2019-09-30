@@ -1,0 +1,44 @@
+#(Q) -> https://www.geeksforgeeks.org/connected-components-in-an-undirected-graph/
+#use VSISITED aray to track the vertices that are visited
+#use DFS to traverse -> traverse till the end/bottom and append the vertex that is visited to a list
+#do this for all vertices that are not visited
+#t - O(V+E)
+#s - O(V)
+
+
+from collections import defaultdict
+class Graph:
+	def __init__(self,v):
+		self.verLen = v
+		self.verList = defaultdict(list)
+	
+	def addEdge(self,x,y):
+		self.verList[x].append(y)
+		self.verList[y].append(x)
+	
+	def dfs(self,v,vis,l):
+		vis[v] = True
+		l.append(v)
+		for ver in self.verList[v]:
+			if not vis[ver]:
+				self.dfs(ver,vis,l)
+		
+	def connComp(self):
+		vis = [False]*self.verLen
+		out = []
+		for v in range(self.verLen):
+			if not vis[v]:
+				l = []
+				self.dfs(v,vis,l)
+				out.append(l)
+		return out
+
+g = Graph(4)
+g.addEdge(0, 1) 
+g.addEdge(0, 2) 
+g.addEdge(0, 3) 
+g.addEdge(1, 3) 
+x = g.connComp()
+print("Number of connected components: " + str(len(x)))
+print("And they are: ", end= "")
+print(x)
