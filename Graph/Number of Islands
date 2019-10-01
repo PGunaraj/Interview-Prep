@@ -2,6 +2,8 @@
 #use adjacency matrix to represent the graph
 #start from (0,0) and go in all 8 directions. 
 #If it's inside the matrix and it's a 1 then include it to the curretn island and continue going in 8 directions.
+#t - O(R*C)
+#s - O(R*C)
 
 
 
