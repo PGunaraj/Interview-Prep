@@ -2,5 +2,67 @@
 #Bottom View -> Bottom Most Node at it's Horizontal Dist
 #HorDis(Root) = 0. 
 #HorDis(LeftChild) = HorDis(node) - 1 and HorDis(RightChild) = HorDis(node) + 1
+#Do a level order traversal and keep updating HorDist and node in dict
+#store node and it's HorDis in Q
 
 
+class Node:
+	def __init__(self,v):
+		self.val=v
+		self.left=None
+		self.right=None
+
+class BinSearchTree:
+	def __init__(self):
+		self.root=None
+	
+	#inserting a node into binary search tree
+	def insertNode(self,r,n):
+		if r==None:
+			return n
+		elif n.val<r.val:
+			if r.left==None:
+				r.left=n
+			else:
+				self.insertNode(r.left,n)
+		else:
+			if r.right==None:
+				r.right=n
+			else:
+				self.insertNode(r.right,n)
+			return
+	def insert(self,val):
+		node=Node(val)
+		if self.root==None:
+			self.root=node
+		else:
+			self.insertNode(self.root,node)
+	
+	def bottomView(self):
+    #dict to store unique pairs of HD and node
+		hd = {}
+		hd[0] = self.root.val
+		q = []
+    #store node and it's HorDis in Q
+		q.append([self.root,0])
+		while q:
+			t,dis = q.pop(0)
+			if t.left:
+				q.append([t.left,dis-1])
+				hd[dis-1] = t.left.val
+			if t.right:
+				q.append([t.right,dis+1])
+				hd[dis+1] = t.right.val
+		for k in sorted(hd.keys()):
+			print(hd[k],end=" ")
+		
+b = BinSearchTree()
+b.insert(20)
+b.insert(8)
+b.insert(22)
+b.insert(5)
+b.insert(25)
+b.insert(13)
+b.insert(10)
+b.insert(14)
+b.bottomView()
