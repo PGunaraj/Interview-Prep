@@ -1,0 +1,6 @@
+#(Q) -> https://www.geeksforgeeks.org/bottom-view-binary-tree/
+#Bottom View -> Bottom Most Node at it's Horizontal Dist
+#HorDis(Root) = 0. 
+#HorDis(LeftChild) = HorDis(node) - 1 and HorDis(RightChild) = HorDis(node) + 1
+
+
