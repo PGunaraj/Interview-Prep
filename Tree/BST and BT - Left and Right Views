@@ -1,0 +1,69 @@
+#Left View -> 1st node in each level
+#Right View -> last node in each level
+
+
+class Node:
+	def __init__(self,v):
+		self.val=v
+		self.left=None
+		self.right=None
+
+class BinSearchTree:
+	def __init__(self):
+		self.root=None
+	
+	#inserting a node into binary search tree
+	def insertNode(self,r,n):
+		if r==None:
+			return n
+		elif n.val<r.val:
+			if r.left==None:
+				r.left=n
+			else:
+				self.insertNode(r.left,n)
+		else:
+			if r.right==None:
+				r.right=n
+			else:
+				self.insertNode(r.right,n)
+			return
+	def insert(self,val):
+		node=Node(val)
+		if self.root==None:
+			self.root=node
+		else:
+			self.insertNode(self.root,node)
+	
+	def leftView(self):
+		q = []
+		q.append(self.root)
+		while q:
+			print(q[0].val, end=" ")
+			for i in range(len(q)):
+				node = q.pop(0)
+				if node.left:
+					q.append(node.left)
+				if node.right:
+					q.append(node.right)
+	
+	def rightView(self):
+		q = []
+		q.append(self.root)
+		while q:
+			print(q[-1].val, end=" ")
+			for i in range(len(q)):
+				node = q.pop(0)
+				if node.left:
+					q.append(node.left)
+				if node.right:
+					q.append(node.right)
+
+b = BinSearchTree()
+b.insert(5)
+b.insert(3)
+b.insert(10)
+b.insert(20)
+b.insert(30)
+b.insert(1)
+b.leftView()
+b.rightView()
