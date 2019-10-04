@@ -1,0 +1,70 @@
+#(Q) -> https://www.geeksforgeeks.org/shortest-path-unweighted-graph/
+#Use BFS to traverse from S to D
+#dist[] -> keeps track of the distance from S to each node
+#pred[] -> keeps track of the predecessor of each node
+#t - O(V+E)
+#S - O(V)
+
+
+from collections import defaultdict
+class Graph:
+	def __init__(self,v):
+		self.verLen = v
+		self.verList = defaultdict(list)
+	
+	def addEdge(self,x,y):
+		self.verList[x].append(y)
+		self.verList[y].append(x)
+	
+	def BFS(self,s,d,dist,pred):
+		q = []
+		vis = [False]*self.verLen
+		
+		#start from the source
+		q.append(s)
+		vis[s] = True
+		dist[s] = 0
+		
+		while q:
+			tmp = q.pop(0)
+			for v in self.verList[tmp]:
+				if not vis[v]:
+					vis[v] = True
+					q.append(v)
+					dist[v] = dist[tmp] + 1
+					pred[v] = tmp
+					
+					if v == d:
+						return True
+		return False
+	
+	def shortestPath(self,s,d):
+		dist = [float("inf")]*self.verLen
+		pred = [-1]*self.verLen
+		
+		if not self.BFS(s,d,dist,pred):
+			print("Error! No Path from Source to Destination")
+		
+		print("Shortest path between "+ str(s) + " and " + str(d) + " is: " + str(dist[d]))
+		
+		path = []
+		tmp = d
+		while pred[tmp]!=-1:
+			path.insert(0,tmp)
+			tmp = pred[tmp]
+		path.insert(0,s)
+		print("The path is: ", end="")
+		print(path)
+
+g = Graph(8)
+g.addEdge(0,1)
+g.addEdge(0,3)
+g.addEdge(1,2)
+g.addEdge(3,4)
+g.addEdge(3,7)
+g.addEdge(4,5)
+g.addEdge(4,6)
+g.addEdge(4,7)
+g.addEdge(5,6)
+g.addEdge(6,7)
+g.shortestPath(2,6)
