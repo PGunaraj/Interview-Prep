@@ -1,5 +1,5 @@
 ITERATIVE:
-left-most element in each level is the left view
+left-most element in each level is the left view (i.e) 1st node in each level
 
 
 def leftView(self,node):
