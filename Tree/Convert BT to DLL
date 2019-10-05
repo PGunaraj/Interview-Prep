@@ -1,0 +1,68 @@
+# (Q) -> https://www.geeksforgeeks.org/convert-given-binary-tree-doubly-linked-list-set-3/
+# do Inorder traversal and keep track of Prev Node.
+#head will be left most node
+#each time we update the l and r pointers, node.l = prev and prev.r = node and prev = node
+#t -> O(n)
+
+
+class Node:
+	def __init__(self,v):
+		self.val=v
+		self.left=None
+		self.right=None
+
+class BinSearchTree:
+	def __init__(self):
+		self.root=None
+	
+	#inserting a node into binary search tree
+	def insertNode(self,r,n):
+		if r==None:
+			return n
+		elif n.val<r.val:
+			if r.left==None:
+				r.left=n
+			else:
+				self.insertNode(r.left,n)
+		else:
+			if r.right==None:
+				r.right=n
+			else:
+				self.insertNode(r.right,n)
+			return
+	def insert(self,val):
+		node=Node(val)
+		if self.root==None:
+			self.root=node
+		else:
+			self.insertNode(self.root,node)
+	
+	def BTtoDLL(self,node,prev):
+		if not node:
+			return
+		self.BTtoDLL(node.left,prev)
+		if not prev[0]:
+			self.root = node
+		else:
+			node.left = prev[0]
+			prev[0].right = node
+		prev[0] = node
+		self.BTtoDLL(node.right,prev)
+	
+	def printBT(self):
+		node = self.root
+		while node:
+			print(node.val, end= " ")
+			node = node.right
+		
+b = BinSearchTree()
+b.insert(20)
+b.insert(8)
+b.insert(22)
+b.insert(5)
+b.insert(25)
+b.insert(13)
+b.insert(10)
+b.insert(14)
+b.BTtoDLL(b.root,[None])
+b.printBT()
