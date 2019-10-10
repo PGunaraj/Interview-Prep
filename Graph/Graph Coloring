@@ -1,0 +1,59 @@
+#Greedy Approach -> color the vertex with the first available color
+#color -> keeps track of the vertex and it's color
+#available -> tells if the color is available or not
+#For each vertex, 
+    #make all the adjacent vertices color unavailable if they are already colored.
+    #color the vertex with the 1st available color
+#t - O(V^2 + E)
+#s - O(V)
+
+
+from collections import defaultdict
+class Graph:
+	def __init__(self,v):
+		self.verLen = v
+		self.verList = defaultdict(list)
+ 
+	def addEdge(self,x,y):
+		self.verList[x].append(y)
+		self.verList[y].append(x)
+	
+	def colorGraph(self):
+		#color of each vertex
+		color = [-1]*self.verLen
+		#availability of each color
+		available = [True]*self.verLen
+		
+		#1st vertex's color is 1st color
+		color[0] = 0
+		
+		#color all other vertices
+		for vertex in range(1,self.verLen):
+			#get all adjacent vertices
+			for v in self.verList[vertex]:
+				#adjacent vertex is already colored
+				if color[v] != -1:
+					available[color[v]] =  False
+					
+			#get the 1st available color
+			for c in range(self.verLen):
+				if available[c]:
+					break
+			color[vertex] = c
+			
+			#reset the availability
+			for v in self.verList[vertex]:
+				if color[v] != -1:
+					available[color[v]] =  True
+			
+		#print the vertex and it's color
+		for vertex in range(self.verLen):
+			print(str(vertex)+"---->"+str(color[vertex]))
+ 
+g = Graph(5)
+g.addEdge(0,1)
+g.addEdge(0,2)
+g.addEdge(1,3)
+g.addEdge(2,4)
+g.addEdge(3,4)
+g.colorGraph()
